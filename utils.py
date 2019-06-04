@@ -15,7 +15,7 @@ def dataset_specs(dataset):
 		num_train=5994
 		num_valid=1200
 		num_test=4594
-		return 200,'birds_stanford_2011/database_pytorch_format/',[num_train,num_valid,num_test,200]
+		return 200,'../data_prueba_PR/con_validacion/',[num_train,num_valid,num_test,200]
 	if dataset=='cars':
 		num_train=8144
 		num_valid=1960
@@ -170,10 +170,10 @@ def save_logits(net,number_samples,dataset,net_name,*args):
         logit_prediction_test=numpy.zeros((n_test,n_classes),dtype=numpy.float32)
         logit_true_test=numpy.zeros((n_test,),dtype=numpy.int64)
 
-	lista=[(logit_prediction_train,logit_true_train),(logit_prediction_test,logit_true_test),(logit_prediction_valid,logit_true_valid)]
-	lista_str=[("_logit_prediction_train","_true_train"),("_logit_prediction_test","_true_test"),("_logit_prediction_valid","_true_valid")]
+	lista=[(logit_prediction_train,logit_true_train),(logit_prediction_valid,logit_true_valid),(logit_prediction_test,logit_true_test)]
+	lista_str=[("_logit_prediction_train","_true_train"),("_logit_prediction_valid","_true_valid"),("_logit_prediction_test","_true_test")]
 	stats=list()
-	for idx,loader in enumerate(args): #train loader, test loader, valid loader
+	for idx,loader in enumerate(args): #train loader, valid loader, test loader
 	        logits,true=lista[idx]		
 		name_logit,name_true=lista_str[idx]
 		mc_loss=0.0
@@ -195,7 +195,7 @@ def save_logits(net,number_samples,dataset,net_name,*args):
 	if len(stats)==2:
 		print "ACC train[{:.3f}] of {}\t ACC test[{:.3f}] of {}".format(stats[0][0],stats[0][1],stats[1][0],stats[1][1])
 	else:
-		print "ACC train[{:.3f}] of {}\t ACC test[{:.3f}] of {}\t ACC valid[{:.3f}] of {}".format(stats[0][0],stats[0][1],stats[1][0],stats[1][1],stats[2][0],stats[2][1])
+		print "ACC train[{:.3f}] of {}\t ACC valid[{:.3f}] of {}\t ACC test[{:.3f}] of {}".format(stats[0][0],stats[0][1],stats[1][0],stats[1][1],stats[2][0],stats[2][1])
 
 
 
